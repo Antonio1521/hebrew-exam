@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hebrew Exam Titan: ULTIMATE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">TITAN PRO</div>
+        
+        <select id="lang-select" onchange="app.changeLanguage()" class="lang-switch">
+            <option value="ru">🇷🇺 Русский</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="he">🇮🇱 עברית</option>
+        </select>
+        
+        <div class="menu-category" data-i18n="menu_theory">База Знаний</div>
+        <button class="nav-btn active" onclick="app.show('theory-connectors', this)" data-i18n="btn_connectors">🔗 Таблица Связок</button>
+        <button class="nav-btn" onclick="app.show('theory-vocab', this)" data-i18n="btn_vocab">📚 Словарь</button>
+        <button class="nav-btn" onclick="app.show('theory-graphs', this)" data-i18n="btn_graphs">📊 Графики</button>
+        <button class="nav-btn" onclick="app.show('theory-writing', this)" data-i18n="btn_writing">📝 Шаблоны Письма</button>
+
+        <div class="menu-category" data-i18n="menu_drills">Тренажеры</div>
+        <button class="nav-btn" onclick="app.show('drill-logic', this)" data-i18n="btn_logic">🧠 Логика</button>
+        <button class="nav-btn" onclick="app.show('drill-rewrite', this)" data-i18n="btn_rewrite">✍️ Шихтув (Rewrite)</button>
+        <button class="nav-btn" onclick="app.show('drill-combine', this)" data-i18n="btn_combine">🧩 Хибур (Combine)</button>
+        <button class="nav-btn" onclick="app.show('drill-graphs', this)" data-i18n="btn_drill_graphs">📈 Хамлала (Drill)</button>
+
+        <div class="menu-category" data-i18n="menu_exam">Экзамен</div>
+        <button class="nav-btn" onclick="app.show('sim-essay', this)" data-i18n="btn_essay">💻 Симулятор Эссе</button>
+    </aside>
+
+    <main class="content">
+        
+        <div id="theory-connectors" class="section active">
+            <h2 data-i18n="title_connectors">Таблица Логических Связок</h2>
+            <div id="table-connectors-container"></div>
+        </div>
+
+        <div id="theory-vocab" class="section">
+            <h2 data-i18n="title_vocab">Академический Словарь</h2>
+            <div id="table-vocab-container"></div>
+        </div>
+
+        <div id="theory-graphs" class="section">
+            <h2 data-i18n="title_graphs">Словарь для Графиков</h2>
+            <div id="table-graphs-container"></div>
+        </div>
+
+        <div id="theory-writing" class="section">
+            <h2 data-i18n="title_writing">Шаблоны Письма</h2>
+            <div class="info-box">
+                <h3 data-i18n="subtitle_structure">Структура Мнения</h3>
+                <ul class="hebrew-list">
+                    <li><b>פתיחה:</b> "הסוגיה של... מעוררת דיון ציבורי..."</li>
+                    <li><b>דעה:</b> "לדעתי... / אני סבור כי..."</li>
+                    <li><b>נימוק 1:</b> "ראשית,... / הסיבה המרכזית לכך היא..."</li>
+                    <li><b>נימוק 2:</b> "שנית,... / נוסף על כך,..."</li>
+                    <li><b>דוגמה:</b> "למשל,... / דוגמה לכך ניתן לראות ב..."</li>
+                    <li><b>סיום:</b> "לסיכום,... / לאור האמור לעיל..."</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="drill-logic" class="section">
+            <div class="header-row">
+                <h2 data-i18n="title_logic_drill">Тренажер: Логика</h2>
+                <div>
+                     <button class="small-btn" onclick="app.toggleCheatSheet()">📜 Шпаргалка (Cheat Sheet)</button>
+                     <button class="action-btn" onclick="app.renderDrill('logic')" data-i18n="btn_new_questions">🔄 Новые вопросы</button>
+                </div>
+            </div>
+
+            <div id="connectors-cheat-sheet" style="display:none; margin-bottom:20px; background:#f9f9f9; padding:15px; border:1px solid #ddd; border-radius:8px;">
+                <h3 style="margin-top:0">טבלת מילות קישור</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li><strong>Contrast (ניגוד):</strong> אולם, ברם, אך, בניגוד ל..., דא עקא</li>
+                    <li><strong>Cause (סיבה):</strong> הואיל ו..., היות ש..., כיוון ש..., עקב, בגין</li>
+                    <li><strong>Result (תוצאה):</strong> לכן, לפיכך, אי לכך, עקב זאת</li>
+                    <li><strong>Concession (ויתור):</strong> למרות, חרף, אף על פי ש..., עם זאת</li>
+                </ul>
+            </div>
+
+            <div id="container-logic" class="grid-container"></div>
+        </div>
+
+        <div id="drill-rewrite" class="section">
+            <div class="header-row">
+                <h2 data-i18n="title_rewrite_drill">Тренажер: Шихтув</h2>
+                <button class="action-btn" onclick="app.renderDrill('rewrite')" data-i18n="btn_new_questions">🔄 Новые вопросы</button>
+            </div>
+            <div id="container-rewrite" class="grid-container"></div>
+        </div>
+
+        <div id="drill-combine" class="section">
+            <div class="header-row">
+                <h2 data-i18n="title_combine_drill">Тренажер: Хибур</h2>
+                <button class="action-btn" onclick="app.renderDrill('combine')" data-i18n="btn_new_questions">🔄 Новые вопросы</button>
+            </div>
+            <div id="container-combine" class="grid-container"></div>
+        </div>
+
+        <div id="drill-graphs" class="section">
+            <div class="header-row">
+                <h2 data-i18n="title_graphs_drill">Тренажер: Графики</h2>
+                <button class="action-btn" onclick="app.renderDrill('graphs')" data-i18n="btn_new_questions">🔄 Новые вопросы</button>
+            </div>
+            <div id="container-graphs" class="grid-container"></div>
+        </div>
+
+        <div id="sim-essay" class="section">
+            <h2 data-i18n="title_essay_sim">Симулятор Эссе</h2>
+            
+            <select id="essay-topic" onchange="app.setEssayTopic()" class="full-width-select">
+                <option value="" data-i18n="opt_select_topic">🔽 Выберите тему экзамена...</option>
+                </select>
+
+            <div class="essay-grid">
+                
+                <div class="reading-column">
+                    <h3 data-i18n="label_source_text">📄 Текст для чтения</h3>
+                    <div id="source-text-container" class="source-box">
+                        <p style="color:#7f8c8d; text-align:center; margin-top:50px;">
+                            Выберите тему сверху, чтобы загрузить текст статьи.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="writing-column">
+                    <div id="essay-prompt" class="prompt-box" data-i18n="msg_select_prompt">
+                        Задание появится здесь.
+                    </div>
+                    
+                    <textarea id="essay-area" placeholder="..."></textarea>
+                    
+                    <div class="btn-row">
+                        <button class="action-btn green" onclick="app.analyzeEssay()" data-i18n="btn_check">🔍 Проверить</button>
+                        <button class="action-btn red" onclick="document.getElementById('essay-area').value=''" data-i18n="btn_reset">🗑️ Сброс</button>
+                    </div>
+                    
+                    <div id="essay-feedback" class="feedback-area"></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
