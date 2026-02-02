@@ -107,7 +107,14 @@ const app = {
             card.className = 'card';
             let title = `Вопрос ${index + 1}`;
             if(item.task) title = item.task; 
-            let content = item.q || `"${item.original}"` || `1. ${item.s1}<br>2. ${item.s2}`;
+            let content = item.q;
+            if (!content) {
+                if (item.original) {
+                    content = `"${item.original}"`;
+                } else {
+                    content = `1. ${item.s1}<br>2. ${item.s2}`;
+                }
+            }
             
             let html = `<div class="q-text"><span class="task-label">${title}</span><br>${content}</div>`;
             item.options.forEach((opt, idx) => {
